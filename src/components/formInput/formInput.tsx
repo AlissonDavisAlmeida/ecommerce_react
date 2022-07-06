@@ -14,7 +14,7 @@ function FormInput({label, ...props}: FormInputProps) {
     return (
         <div className={`group`}>
             <input className={`form-input`} {...props} />
-            <label className={`${props.value.length > 0 ? 'shrink' : ''} form-input-label`} htmlFor={label}>{label}</label>
+            <label className={`${props.value.length > 0 ? 'shrink' : ''} form-input-label`} htmlFor={props.id}>{label}</label>
         </div>
     );
 }

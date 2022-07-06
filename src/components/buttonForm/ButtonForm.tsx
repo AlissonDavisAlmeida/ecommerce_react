@@ -9,12 +9,12 @@ type BUTTON_TYPE_CLASSES =
 interface ButtonProps {
     type?: BUTTON_TYPE_CLASSES;
     children: React.ReactNode;
-    props: any
+    props?: any
 }
 
 function Button({ children, type, props }: ButtonProps) {
     return (
-        <button className={`button-container ${type}`} {...props}>
+        <button  className={`button-container ${type}`} {...props}>
             {children}
         </button>
     );

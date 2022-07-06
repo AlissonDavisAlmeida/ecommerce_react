@@ -18,7 +18,7 @@ const initialStateFormFields: InitialState = {
     confirmPassword: ""
 }
 
-function SignupForm() {
+export function SignupForm() {
 
 
     const [formField, setformField] = useState(initialStateFormFields);
@@ -89,4 +89,3 @@ function SignupForm() {
     );
 }
 
-export default SignupForm;

@@ -1,6 +1,6 @@
-import SignupForm from "../../components/signupForm/SignUpForm";
+import {SignInForm, SignupForm}  from "../../components"
 import { createUserDocumentFromAuth, signInWithGooglePopUp } from "../../utils/firebase/firebase_utils";
-
+import "./signinPage.scss"
 
 function Signin() {
 
@@ -13,9 +13,9 @@ function Signin() {
     }
 
     return (
-        <div>
-            <h1>Sign In Page</h1>
-            <button onClick={logGoogleUser}>Login</button>
+        <div className="container">
+            
+            <SignInForm />
             <SignupForm />
         </div>
 
