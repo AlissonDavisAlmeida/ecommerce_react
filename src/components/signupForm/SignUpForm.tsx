@@ -1,4 +1,5 @@
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useContext, useState } from "react";
+import { UserContext } from "../../context/user_context";
 import { createUser, createUserDocumentFromAuth } from "../../utils/firebase/firebase_utils";
 import Button from "../buttonForm/ButtonForm";
 import FormInput from "../formInput/formInput";
@@ -23,6 +24,9 @@ export function SignupForm() {
 
     const [formField, setformField] = useState(initialStateFormFields);
 
+    const {setUser} = useContext(UserContext)
+
+
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         const { id, value } = e.target;
         setformField({ ...formField, [id]: value });
@@ -37,9 +41,11 @@ export function SignupForm() {
 
         try {
 
-            const login = await createUser(formField.email, formField.password);
+            const { user } = await createUser(formField.email, formField.password);
 
-            const user = await createUserDocumentFromAuth(login?.user, { displayName: formField.displayName });
+            setUser?.(user)
+
+            await createUserDocumentFromAuth(user, { displayName: formField.displayName });
 
             setformField(initialStateFormFields);
         } catch (error: any) {
@@ -80,7 +86,7 @@ export function SignupForm() {
                     value={formField.confirmPassword}
                     required={true} />
 
-                <Button props={{type: "submit"}}>
+                <Button props={{ type: "submit" }}>
                     Sign Up
                 </Button>
             </form>

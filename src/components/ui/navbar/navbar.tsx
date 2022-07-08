@@ -1,8 +1,24 @@
 import { Link, Outlet } from "react-router-dom";
 import "./navbar.scss"
 import { ReactComponent as Chrown } from "../../../assets/crown.svg"
+import { useContext } from "react";
+import { UserContext } from "../../../context/user_context";
+import { logout } from "../../../utils/firebase/firebase_utils";
 
 function NavBar() {
+
+
+
+    const { user, setUser } = useContext(UserContext)
+
+    const handleLogout = async () => {
+        const result = await logout();
+
+
+        setUser?.(null)
+
+    }
+
     return (
         <>
             <div className="navigation">
@@ -14,7 +30,8 @@ function NavBar() {
 
                 <div className="nav-links">
                     <Link className="link" to="/shop">Shop</Link>
-                    <Link className="link" to="/signin">Sign in</Link>
+                    {user && <span className="link" onClick={handleLogout}>Logout</span>}
+                    {!user && <Link className="link" to="/authenticate">Sign up</Link>}
                 </div>
             </div>
             <Outlet />

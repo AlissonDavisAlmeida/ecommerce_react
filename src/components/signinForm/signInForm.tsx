@@ -1,4 +1,6 @@
-import { ChangeEvent, FormEvent, useState } from "react";
+import { FirebaseError } from "firebase/app";
+import { ChangeEvent, FormEvent, useContext, useState } from "react";
+import { UserContext } from "../../context/user_context";
 import { createUserDocumentFromAuth, signInWithEmail, signInWithGooglePopUp } from "../../utils/firebase/firebase_utils";
 import Button from "../buttonForm/ButtonForm";
 import FormInput from "../formInput/formInput";
@@ -19,7 +21,7 @@ const initialStateFormFields: InitialState = {
 export function SignInForm() {
 
     const [formField, setformField] = useState(initialStateFormFields);
-
+    const { setUser } = useContext(UserContext)
 
     const signinWithGoogle = async () => {
         const { user } = await signInWithGooglePopUp()
@@ -32,10 +34,15 @@ export function SignInForm() {
 
 
         try {
-            const response = await signInWithEmail(formField.email_form, formField.password_form)
+            const { user } = await signInWithEmail(formField.email_form, formField.password_form)
+
+            setUser?.(user)
             setformField(initialStateFormFields)
         } catch (error: any) {
-
+            if (error.code === "auth/user-not-found") {
+                alert("User not found")
+            }
+            console.log(typeof error)
         }
     }
 

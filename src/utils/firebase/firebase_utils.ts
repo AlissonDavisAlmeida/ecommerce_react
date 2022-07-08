@@ -4,10 +4,11 @@ import { getAuth,
          signInWithPopup, 
          GoogleAuthProvider, 
          createUserWithEmailAndPassword, 
-         signInWithEmailAndPassword
+         signInWithEmailAndPassword,
+         UserCredential,
+         signOut
         } from "firebase/auth"
 import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore"
-import { stringify } from "querystring";
 
 const firebaseConfig: FirebaseOptions = {
     apiKey: process.env.REACT_APP_API_KEY,
@@ -29,11 +30,15 @@ provider.setCustomParameters({
 export const auth = getAuth()
 export const signInWithGooglePopUp = async () => await signInWithPopup(auth, provider)
 export const signInWithGoogleRedirect = async (): Promise<{ user: {} }> => await signInWithRedirect(auth, provider)
-export const signInWithEmail= async (email: string, password: string) => {
-    if (!email || !password) return
+export const signInWithEmail= async (email: string, password: string): Promise<UserCredential> => {
 
     return await signInWithEmailAndPassword(auth, email, password)
 }
+
+export const logout = async()=>{
+    signOut(auth)
+}
+
 export const db = getFirestore()
 
 export const createUserDocumentFromAuth = async (userAuth: any, additionalInformation: {} = {}) => {
@@ -62,7 +67,6 @@ export const createUserDocumentFromAuth = async (userAuth: any, additionalInform
 
 export const createUser = async (email: string, password: string) => {
 
-    if (!email || !password) return
 
     return await createUserWithEmailAndPassword(auth, email, password)
 }

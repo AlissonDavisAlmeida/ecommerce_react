@@ -1,16 +1,16 @@
+import { useContext, useEffect } from "react";
 import {SignInForm, SignupForm}  from "../../components"
-import { createUserDocumentFromAuth, signInWithGooglePopUp } from "../../utils/firebase/firebase_utils";
+import { UserContext } from "../../context/user_context";
 import "./signinPage.scss"
 
 function Signin() {
 
-    const logGoogleUser = async () => {
-        const response = await signInWithGooglePopUp()
+    const user = useContext(UserContext)
 
-        const userDocRef = await createUserDocumentFromAuth(response.user)
-
-        console.log(userDocRef)
-    }
+    useEffect(() => {
+        console.log(user)
+    }, [])
+    
 
     return (
         <div className="container">

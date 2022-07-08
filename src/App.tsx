@@ -13,7 +13,7 @@ function App() {
           <Route path="/" element={<NavBar />} >
               <Route index element={<HomePage />} />
               <Route path="shop" element={<ShoppinPage />} />
-              <Route path="signin" element={<Signin />} />
+              <Route path="authenticate" element={<Signin />} />
           </Route>
       </Routes>    
   );
