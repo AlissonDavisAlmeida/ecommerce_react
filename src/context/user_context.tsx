@@ -1,4 +1,5 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
+import { createUserDocumentFromAuth, logout, onAuthStateChangedListener } from "../utils/firebase/firebase_utils";
 
 interface UserContextProps {
     user: any;
@@ -23,10 +24,25 @@ export const UserProvider = ({ children }: UserProviderProps) => {
 
     const [user, setUser] = useState(null)
 
+    
     const initialSettings = {
         user,
         setUser
     }
+
+    useEffect(()=>{
+       const unsubscribe = onAuthStateChangedListener((user: any)=>{
+
+            if(user){
+                createUserDocumentFromAuth(user)
+            }
+            console.log(user)
+            setUser(user)
+        })
+
+
+        return unsubscribe
+    },[])
 
     return (
         <UserContext.Provider value={initialSettings}>

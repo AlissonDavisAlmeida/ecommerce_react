@@ -1,13 +1,15 @@
 import { FirebaseOptions, initializeApp } from "firebase/app"
-import { getAuth, 
-         signInWithRedirect, 
-         signInWithPopup, 
-         GoogleAuthProvider, 
-         createUserWithEmailAndPassword, 
-         signInWithEmailAndPassword,
-         UserCredential,
-         signOut
-        } from "firebase/auth"
+import {
+    getAuth,
+    signInWithRedirect,
+    signInWithPopup,
+    GoogleAuthProvider,
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+    UserCredential,
+    signOut,
+    onAuthStateChanged
+} from "firebase/auth"
 import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore"
 
 const firebaseConfig: FirebaseOptions = {
@@ -30,12 +32,12 @@ provider.setCustomParameters({
 export const auth = getAuth()
 export const signInWithGooglePopUp = async () => await signInWithPopup(auth, provider)
 export const signInWithGoogleRedirect = async (): Promise<{ user: {} }> => await signInWithRedirect(auth, provider)
-export const signInWithEmail= async (email: string, password: string): Promise<UserCredential> => {
+export const signInWithEmail = async (email: string, password: string): Promise<UserCredential> => {
 
     return await signInWithEmailAndPassword(auth, email, password)
 }
 
-export const logout = async()=>{
+export const logout = async () => {
     signOut(auth)
 }
 
@@ -70,3 +72,5 @@ export const createUser = async (email: string, password: string) => {
 
     return await createUserWithEmailAndPassword(auth, email, password)
 }
+
+export const onAuthStateChangedListener = (callback: (user:any) => void) => onAuthStateChanged(auth, callback)
