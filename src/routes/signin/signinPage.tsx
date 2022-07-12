@@ -8,7 +8,6 @@ function Signin() {
     const user = useContext(UserContext)
 
     useEffect(() => {
-        console.log(user)
     }, [])
     
 

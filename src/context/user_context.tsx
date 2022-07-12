@@ -36,7 +36,6 @@ export const UserProvider = ({ children }: UserProviderProps) => {
             if(user){
                 createUserDocumentFromAuth(user)
             }
-            console.log(user)
             setUser(user)
         })
 
