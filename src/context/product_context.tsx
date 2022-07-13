@@ -8,11 +8,11 @@ export interface Product {
     imageUrl: string;
 }
 
-interface ProductContext {
+interface ProductContextProps {
     products: Product[];
 }
 
-export const ProductContext = createContext({} as ProductContext);
+export const ProductContext = createContext({} as ProductContextProps);
 
 
 interface ProductProviderProps {

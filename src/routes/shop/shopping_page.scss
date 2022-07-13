@@ -1,6 +1,25 @@
-.products_container{
+.products_container {
     display: grid;
     column-gap: 10px;
     row-gap: 50px;
     grid-template-columns: repeat(4, 1fr);
+    
+}
+
+@media screen and (max-width: 930px) {
+    .products_container {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media screen and (max-width: 730px) {
+    .products_container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .products_container {
+        grid-template-columns: repeat(1, 1fr);
+    }
 }
