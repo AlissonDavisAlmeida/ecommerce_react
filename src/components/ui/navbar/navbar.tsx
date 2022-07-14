@@ -1,4 +1,4 @@
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 import "./navbar.scss"
 import { ReactComponent as Chrown } from "../../../assets/crown.svg"
 import { useContext } from "react";
@@ -10,7 +10,7 @@ import { CartContext } from "../../../context/cart_context";
 
 function NavBar() {
 
-
+    const navigate = useNavigate()
 
     const { user } = useContext(UserContext)
     const {isCartOpen} = useContext(CartContext)
@@ -18,7 +18,8 @@ function NavBar() {
     const handleLogout = async () => {
         const result = await logout();
 
-    }
+        navigate("/authenticate")
+    }   
 
     return (
         <>

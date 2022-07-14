@@ -1,5 +1,6 @@
 import { ChangeEvent, FormEvent, useState } from "react";
-import { createUserDocumentFromAuth, signInWithEmail, signInWithGooglePopUp } from "../../utils/firebase/firebase_utils";
+import { useNavigate } from "react-router-dom";
+import { signInWithEmail, signInWithGooglePopUp } from "../../utils/firebase/firebase_utils";
 import Button from "../buttonForm/ButtonForm";
 import FormInput from "../formInput/formInput";
 import "./signinForm.scss"
@@ -19,9 +20,12 @@ const initialStateFormFields: InitialState = {
 export function SignInForm() {
 
     const [formField, setformField] = useState(initialStateFormFields);
+    const navigate = useNavigate()
 
     const signinWithGoogle = async () => {
          await signInWithGooglePopUp()
+
+        navigate("/")
 
     }
 

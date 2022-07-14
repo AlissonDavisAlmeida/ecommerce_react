@@ -1,3 +1,5 @@
+import { useContext } from "react";
+import { CartContext } from "../../context/cart_context";
 import { Product } from "../../context/product_context";
 import Button from "../buttonForm/ButtonForm";
 import "./productCard.scss"
@@ -9,7 +11,11 @@ interface ProductCardProps {
 
 function ProductCard({ product }: ProductCardProps) {
 
+    const {addItemToCart} = useContext(CartContext)
 
+    const handleClick = () => {
+        addItemToCart(product)
+    }
 
     return (
         <div className="product_card_container">
@@ -18,7 +24,7 @@ function ProductCard({ product }: ProductCardProps) {
                 <span className="name">{product.name}</span>
                 <span className="price">{product.price}</span>
             </div>
-            <Button type="inverted">
+            <Button type="inverted" onClick={handleClick}>
                 Add to Cart
             </Button>
         </div>
