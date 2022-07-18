@@ -1,29 +1,41 @@
 import { useContext } from "react";
+import CheckoutItem from "../../components/checkout-item/CheckoutItem";
 import { CartContext } from "../../context/cart_context";
-import { Product } from "../../context/product_context";
 import "./checkout_style.scss"
 
 function CheckoutPage() {
 
-    const {cartItems, addItemToCart, decreaseItemFromCart} = useContext(CartContext)
+    const { cartItems, totalPrice } = useContext(CartContext)
 
     return (
         <>
-            <div>
+            <div className="checkout-container">
+                <div className="checkout-header">
+                    <div className="header-block">
+                        <span>Product</span>
+                    </div>
+                    <div className="header-block">
+                        <span>Description</span>
+                    </div>
+                    <div className="header-block">
+                        <span>Quantity</span>
+                    </div>
+                    <div className="header-block">
+                        <span>Price</span>
+                    </div>
+                    <div className="header-block">
+                        <span>Remove</span>
+                    </div>
+                </div>
                 {cartItems.map(cartItem => {
-                    const {id,name, price, quantity, imageUrl} = cartItem
                     return (
-                        <div key={id}>
-                            <h2>{name}</h2>
-                            <span>{quantity}</span>
-                            <span onClick={()=> decreaseItemFromCart(cartItem as Product)}>decrement</span>
-                            <span onClick={()=> addItemToCart(cartItem as Product)}>increment</span>
-                        </div>
+                        <CheckoutItem cartItem={cartItem} />
                     )
                 })}
+                <span className="total">Total: ${totalPrice}</span>
             </div>
         </>
-      );
+    );
 }
 
 export default CheckoutPage;

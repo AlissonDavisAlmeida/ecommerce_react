@@ -1,6 +1,6 @@
 import { createContext, useState } from "react";
 import { CartItemProps } from "../components/cartItem/cartItem";
-import {Product} from "./product_context"
+import { Product } from "./product_context"
 
 
 interface CartContextProps {
@@ -10,7 +10,9 @@ interface CartContextProps {
     addItemToCart: (item: Product) => void;
     totalQuantity: number;
     closeDropDown: () => void;
-    decreaseItemFromCart: (item: Product ) => void;
+    decreaseItemFromCart: (item: Product) => void;
+    removeItemFromCart: (id: number) => void;
+    totalPrice: number;
 }
 
 
@@ -32,39 +34,49 @@ export const CartProvider = ({ children }: CartProviderProps) => {
     }
 
     const addItemToCart = (item: Product) => {
-       
+
         const itemAlreadyInCart = cartItems.find(cartItem => cartItem.name === item.name)
 
         if (itemAlreadyInCart) {
             setCartItems(prevState => prevState.map(cartItem => cartItem.name === item.name ? { ...cartItem, quantity: cartItem.quantity + 1 } : cartItem))
         } else {
-            setCartItems([...cartItems, { id: item.id,name: item.name, quantity: 1, imageUrl: item.imageUrl, price: item.price }])
+            setCartItems([...cartItems, { id: item.id, name: item.name, quantity: 1, imageUrl: item.imageUrl, price: item.price }])
         }
 
         setTotalQuantity(prevState => prevState + 1)
-        
+
     }
 
     const decreaseItemFromCart = (item: Product) => {
         const itemToRemove = cartItems.find(cartItem => cartItem.name === item.name)
 
-        if(itemToRemove!.quantity > 1){
+        if (itemToRemove!.quantity > 1) {
             setCartItems(prevState => prevState.map(cartItem => cartItem.name === item.name ? { ...cartItem, quantity: cartItem.quantity - 1 } : cartItem))
         }
-        else{
+        else {
             setCartItems(prevState => prevState.filter(cartItem => cartItem.name !== item.name))
         }
 
         setTotalQuantity(prevState => prevState - 1)
     }
 
+    const removeItemFromCart = (id: number) => {
+        setCartItems(prevState => prevState.filter(cartItem => cartItem.id !== id))
+        setTotalQuantity(prevState => prevState - 1)
+    }
+
+
     const closeDropDown = () => {
         setIsCartOpen(false)
     }
 
+    const total = cartItems.reduce((acc, curr) => acc + curr.price * curr.quantity, 0)
+
     return (
         <CartContext.Provider value={{
             decreaseItemFromCart,
+            totalPrice: total,
+            removeItemFromCart,
             totalQuantity,
             isCartOpen,
             toogleCart,
