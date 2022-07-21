@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 
 
 interface CategoryProps {
@@ -9,8 +10,10 @@ interface CategoryProps {
 
 
 function CategoryComponent(props: CategoryProps) {
+
+    const navigate = useNavigate()
     return (
-        <div className="category-container">
+        <div className="category-container" onClick={()=> navigate("/shop/"+props.title)}>
             
 
             <div className="background-image" style={{

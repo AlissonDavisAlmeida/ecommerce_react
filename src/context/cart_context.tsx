@@ -1,6 +1,6 @@
 import { createContext, useState } from "react";
 import { CartItemProps } from "../components/cartItem/cartItem";
-import { Product } from "./product_context"
+import { Product } from "./category_context"
 
 
 interface CartContextProps {
@@ -61,8 +61,9 @@ export const CartProvider = ({ children }: CartProviderProps) => {
     }
 
     const removeItemFromCart = (id: number) => {
+        const cartToRemove = cartItems.find(cartItem => cartItem.id === id)
         setCartItems(prevState => prevState.filter(cartItem => cartItem.id !== id))
-        setTotalQuantity(prevState => prevState - 1)
+        setTotalQuantity(prevState => prevState - cartToRemove?.quantity!)
     }
 
 

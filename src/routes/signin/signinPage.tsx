@@ -5,7 +5,7 @@ import "./signinPage.scss"
 
 function Signin() {
 
-    const user = useContext(UserContext)
+     useContext(UserContext)
 
     useEffect(() => {
     }, [])
