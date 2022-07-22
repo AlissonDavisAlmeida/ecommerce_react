@@ -14,23 +14,26 @@ function CategoryListPage() {
     const [products, setproducts] = useState<Product[]>([] as Product[])
 
 
-    useEffect(()=>{
+    useEffect(() => {
         setproducts(categoriesMap[category!])
     }, [category, categoriesMap])
 
 
     return (
-        <div className="category-list">
-            {
-                products?.map((product: Product) => {
-                    return (
+        <>
+            <h2 className="title">{category}</h2>
+            <div className="category-list">
+                {
+                    products?.map((product: Product) => {
+                        return (
                             <ProductCard key={product.id} product={product} />
-                        
-                    )
-                })
-            }
 
-        </div>
+                        )
+                    })
+                }
+
+            </div>
+        </>
     );
 }
 
