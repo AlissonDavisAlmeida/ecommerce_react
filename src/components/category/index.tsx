@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import { BackGroundImage, Body, CategoriesContainer } from "./categoryStyled";
 
 
 interface CategoryProps {
@@ -13,18 +14,18 @@ function CategoryComponent(props: CategoryProps) {
 
     const navigate = useNavigate()
     return (
-        <div className="category-container" onClick={()=> navigate("/shop/"+props.title)}>
+        <CategoriesContainer onClick={()=> navigate("/shop/"+props.title)}>
             
 
-            <div className="background-image" style={{
-                backgroundImage: `url(${props.img})`
-            }} />
+            <BackGroundImage className="background-image" 
+                imageUrl={props.img}
+               />
            
-            <div className="category-body-container">
+            <Body className="category-body-container">
                 <h2>{props.title}</h2>
                 <p>{`Shopping Now`}</p>
-            </div>
-        </div>
+            </Body>
+        </CategoriesContainer>
     );
 }
 

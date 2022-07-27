@@ -2,12 +2,12 @@ import CategoryPage from "../category/CategoryPage";
 
 
 function Home() {
-    return ( 
+    return (
         <>
-           
+
             <CategoryPage />
         </>
-     );
+    );
 }
 
 export default Home;

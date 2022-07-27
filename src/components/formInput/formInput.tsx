@@ -1,5 +1,6 @@
 import { ChangeEvent } from "react";
-import "./form-input.styles.scss"
+import { Group,FormInputLabel,Input } from "./formStyled";
+import "./formStyled.tsx"
 
 interface FormInputProps {
     label: string;
@@ -12,10 +13,10 @@ interface FormInputProps {
 
 function FormInput({label, ...props}: FormInputProps) {
     return (
-        <div className={`group`}>
-            <input className={`form-input`} {...props} />
-            <label className={`${props.value.length > 0 ? 'shrink' : ''} form-input-label`} htmlFor={props.id}>{label}</label>
-        </div>
+        <Group>
+            <Input {...props} />
+            <FormInputLabel shrink={props.value.length > 0 } htmlFor={props.id}>{label}</FormInputLabel>
+        </Group>
     );
 }
 

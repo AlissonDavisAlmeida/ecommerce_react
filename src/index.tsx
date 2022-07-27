@@ -9,8 +9,10 @@ import { CategoryProvider } from './context/category_context';
 import { CartProvider } from './context/cart_context';
 
 const root = ReactDOM.createRoot(
+  
   document.getElementById('root') as HTMLElement
 );
+
 root.render(
   <React.StrictMode>
     <BrowserRouter>
