@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import { Product } from "../../../context/category_context";
 import ProductCard from "../../productCard/productCard";
+import { Product } from "../category_interfaces";
 import "./category-preview.scss"
 
 interface CategoryPreviewProps {

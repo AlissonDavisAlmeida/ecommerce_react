@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { CartContext } from "../../context/cart_context";
-import { Category, Product } from "../../context/category_context";
 import { CartItemProps } from "../cartItem/cartItem";
+import { Product } from "../category/category_interfaces";
 import "./checkout-item.styles.scss"
 
 interface CheckoutItemProps {

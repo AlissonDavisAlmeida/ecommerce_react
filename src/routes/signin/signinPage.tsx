@@ -1,15 +1,8 @@
-import { useContext, useEffect } from "react";
 import {SignInForm, SignupForm}  from "../../components"
-import { UserContext } from "../../context/user_context";
 import "./signinPage.scss"
 
 function Signin() {
 
-     useContext(UserContext)
-
-    useEffect(() => {
-    }, [])
-    
 
     return (
         <div className="container">

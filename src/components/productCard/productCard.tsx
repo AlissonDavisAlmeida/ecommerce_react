@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { CartContext } from "../../context/cart_context";
-import {  Product } from "../../context/category_context";
 import Button from "../buttonForm/ButtonForm";
+import { Product } from "../category/category_interfaces";
 import "./productCard.scss"
 
 interface ProductCardProps {

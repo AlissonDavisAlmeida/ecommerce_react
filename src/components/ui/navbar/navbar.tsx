@@ -1,18 +1,19 @@
-import { Link, Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import { NavigationContainer, LogoContainer, NavLink, NavLinkContainer } from "./navbarStyled"
 import { ReactComponent as Chrown } from "../../../assets/crown.svg"
 import { useContext } from "react";
-import { UserContext } from "../../../context/user_context";
 import { logout } from "../../../utils/firebase/firebase_utils";
 import CartIcon from "../../cartIcon/cartIcon";
 import CartDropdown from "../../cartDropdown/cartDropdown";
 import { CartContext } from "../../../context/cart_context";
+import { useSelector } from "react-redux";
 
 function NavBar() {
 
     const navigate = useNavigate()
 
-    const { user } = useContext(UserContext)
+    const {user} = useSelector((state: any) => state.user)
+
     const { isCartOpen } = useContext(CartContext)
 
     const handleLogout = async () => {
@@ -31,9 +32,9 @@ function NavBar() {
                 </LogoContainer>
 
                 <NavLinkContainer>
-                    <NavLink  to="/shop">Shop</NavLink>
+                    <NavLink to="/shop">Shop</NavLink>
                     {user && <NavLink as="span" onClick={handleLogout}>Logout</NavLink>}
-                    {!user && <NavLink   to="/authenticate">Sign up</NavLink>}
+                    {!user && <NavLink to="/authenticate">Sign up</NavLink>}
                     {user && <CartIcon />}
                 </NavLinkContainer>
                 {isCartOpen && <CartDropdown />}

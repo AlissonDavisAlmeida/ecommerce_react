@@ -1,7 +1,9 @@
-import { useContext, useEffect, useState } from "react";
+import {  useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import { Product } from "../../components/category/category_interfaces";
 import ProductCard from "../../components/productCard/productCard";
-import { CategoryContext, Product } from "../../context/category_context";
+import { selectCategoriesMap } from "../../redux/stores/category/category_selectors";
 import "./category-list.scss"
 
 function CategoryListPage() {
@@ -9,14 +11,14 @@ function CategoryListPage() {
 
     const { category } = useParams()
 
-    const { categoriesMap } = useContext(CategoryContext);
+    const  categories  = useSelector(selectCategoriesMap);
 
     const [products, setproducts] = useState<Product[]>([] as Product[])
 
 
     useEffect(() => {
-        setproducts(categoriesMap[category!])
-    }, [category, categoriesMap])
+        setproducts(categories[category!])
+    }, [category, categories])
 
 
     return (

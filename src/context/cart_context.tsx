@@ -1,6 +1,6 @@
 import { createContext, useState } from "react";
 import { CartItemProps } from "../components/cartItem/cartItem";
-import { Product } from "./category_context"
+import { Product } from "../components/category/category_interfaces";
 
 
 interface CartContextProps {
