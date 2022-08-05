@@ -1,5 +1,6 @@
-import { useContext } from "react";
-import { CartContext } from "../../context/cart_context";
+import { useDispatch, useSelector } from "react-redux";
+import { addItemToCart } from "../../redux/stores/cart/cart_actions";
+import { selectCartItems } from "../../redux/stores/cart/cart_selectors";
 import Button from "../buttonForm/ButtonForm";
 import { Product } from "../category/category_interfaces";
 import "./productCard.scss"
@@ -11,10 +12,12 @@ interface ProductCardProps {
 
 function ProductCard({ product }: ProductCardProps) {
 
-    const {addItemToCart} = useContext(CartContext)
+
+    const dispatch = useDispatch()
+    const cartItems = useSelector(selectCartItems)
 
     const handleClick = () => {
-        addItemToCart(product)
+        dispatch(addItemToCart(cartItems, product))
     }
 
     return (
