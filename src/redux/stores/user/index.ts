@@ -11,7 +11,6 @@ export const userReducer = (state = initialState, action: AnyAction) => {
     switch (action.type) {
 
         case USER_ACTION_TYPES.SET_CURRENT_USER:
-            console.log("CHEGOU AQUI")
             return {...state, user: action.payload}
         default:
             return state
