@@ -2,7 +2,7 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Route, Routes } from "react-router-dom";
-import { fetchCategoriesAsync } from "../../redux/stores/category/category_actions";
+import { fetchCategoriesStart } from "../../redux/stores/category/category_actions";
 import CategoriesPreviewPage from "../categories-preview/CategoriesPreviewPage";
 import CategoryListPage from "../category-list/categoryListPage";
 import "./shopping_page.scss"
@@ -13,8 +13,7 @@ function ShoppinPage() {
 
 
     useEffect(() => {
-
-        dispatch(fetchCategoriesAsync())
+        dispatch(fetchCategoriesStart())
 
     }, [])
 

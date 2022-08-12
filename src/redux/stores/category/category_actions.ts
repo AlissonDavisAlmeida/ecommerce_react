@@ -1,9 +1,8 @@
-import { AnyAction } from "redux";
-import { getCategoriesAndDocuments } from "../../../utils/firebase/firebase_utils";
 import { CategoryActionTypes } from "./category_types";
 
 
 export const fetchCategoriesStart = () => {
+    
     return {
         type: CategoryActionTypes.FET_CATEGORIES_START
     }
@@ -21,17 +20,5 @@ export const fetchCategoriesSuccess = (categories: any) => {
 
         type: CategoryActionTypes.FET_CATEGORIES_SUCCESS,
         payload: categories
-    }
-}
-
-export const fetchCategoriesAsync = () => async (dispatch: any) => {
-
-    try{
-        dispatch(fetchCategoriesStart())
-        const categories = await getCategoriesAndDocuments();
-        
-        dispatch(fetchCategoriesSuccess(categories))
-    }catch(err: any){
-        dispatch(fetchCategoriesError(err.message))
     }
 }
