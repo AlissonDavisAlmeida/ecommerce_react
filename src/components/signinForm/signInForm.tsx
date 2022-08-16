@@ -1,6 +1,7 @@
 import { ChangeEvent, FormEvent, useState } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { signInWithEmail, signInWithGooglePopUp } from "../../utils/firebase/firebase_utils";
+import { googleSignInStart, emailSignInStart } from "../../redux/stores/user/user_actions";
 import Button from "../buttonForm/ButtonForm";
 import FormInput from "../formInput/formInput";
 import "./signinForm.scss"
@@ -20,12 +21,12 @@ const initialStateFormFields: InitialState = {
 export function SignInForm() {
 
     const [formField, setformField] = useState(initialStateFormFields);
-    const navigate = useNavigate()
+
+    const dispatch = useDispatch()
 
     const signinWithGoogle = async () => {
-         await signInWithGooglePopUp()
 
-        navigate("/")
+        dispatch(googleSignInStart())
 
     }
 
@@ -35,7 +36,7 @@ export function SignInForm() {
 
 
         try {
-            const { user } = await signInWithEmail(formField.email_form, formField.password_form)
+            dispatch(emailSignInStart(formField.email_form, formField.password_form))
 
             setformField(initialStateFormFields)
         } catch (error: any) {
