@@ -1,17 +1,20 @@
-import { AnyAction } from "redux"
-import { USER_ACTION_TYPES } from "./user_types"
+import { Action, USER_ACTION_TYPES } from "./user_types"
 
 
 const initialState = {
-    user: null
-}
+    user: null,
+    isLoading: false,
+    error: null
+}  
 
-export const userReducer = (state = initialState, action: AnyAction) => {
+export const userReducer = (state = initialState, action: Action) => {
 
     switch (action.type) {
 
-        case USER_ACTION_TYPES.SET_CURRENT_USER:
+        case USER_ACTION_TYPES.SIGN_IN_SUCCESS:
             return {...state, user: action.payload}
+        case USER_ACTION_TYPES.SIGN_IN_FAILURE:
+            return {...state, error: action.payload}    
         default:
             return state
     }

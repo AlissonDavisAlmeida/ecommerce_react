@@ -8,7 +8,8 @@ import {
     signInWithEmailAndPassword,
     UserCredential,
     signOut,
-    onAuthStateChanged
+    onAuthStateChanged,
+    User
 } from "firebase/auth"
 import { collection, writeBatch, getFirestore, doc, getDoc, setDoc, query, getDocs } from "firebase/firestore"
 
@@ -76,7 +77,7 @@ export const createUserDocumentFromAuth = async (userAuth: any, additionalInform
         }
     }
 
-    return userDocRef
+    return userSnapshot
 }
 
 export const getCategoriesAndDocuments = async () => {
@@ -87,15 +88,6 @@ export const getCategoriesAndDocuments = async () => {
     const categoriesSnapshot = await getDocs(querySnapshot)
     return categoriesSnapshot.docs.map(doc => doc.data())
 
-    /* const categoriesMap = categoriesSnapshot.docs.reduce((acc: any, doc: any) => {
-        const {title, items} = doc.data()
-        acc[title.toLowerCase()] = items
-        return acc
-    }, {})
-    
-
-    return categoriesMap */
-
 }
 
 export const createUser = async (email: string, password: string) => {
@@ -105,3 +97,12 @@ export const createUser = async (email: string, password: string) => {
 }
 
 export const onAuthStateChangedListener = (callback: (user: any) => void) => onAuthStateChanged(auth, callback)
+
+export const getCurrentUser = () =>{
+    return new Promise<User | null>((resolve, reject) => {
+        const unsubscribe = onAuthStateChanged(auth ,user => {
+            unsubscribe()
+            resolve(user)
+        },reject)
+    })
+}

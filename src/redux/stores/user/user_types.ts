@@ -1,3 +1,15 @@
+import { User } from "firebase/auth";
+
 export enum USER_ACTION_TYPES {
     SET_CURRENT_USER = "SET_CURRENT_USER",
+    CHECK_USER_SESSION = "CHECK_USER_SESSION",
+    GOOGLE_SIGN_IN_START = "GOOGLE_SIGN_IN_START",
+    EMAIL_SIGN_IN_START = "EMAIL_SIGN_IN_START",
+    SIGN_IN_SUCCESS = "SIGN_IN_SUCCESS",
+    SIGN_IN_FAILURE = "SIGN_IN_FAILURE",
 }
+
+
+export type Action = 
+    | {type: USER_ACTION_TYPES.SIGN_IN_SUCCESS, payload: User}
+    | {type: USER_ACTION_TYPES.SIGN_IN_FAILURE, payload: string}
