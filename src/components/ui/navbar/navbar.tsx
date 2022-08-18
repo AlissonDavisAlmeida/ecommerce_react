@@ -1,23 +1,24 @@
 import { Outlet, useNavigate } from "react-router-dom";
 import { NavigationContainer, LogoContainer, NavLink, NavLinkContainer } from "./navbarStyled"
 import { ReactComponent as Chrown } from "../../../assets/crown.svg"
-import { logout } from "../../../utils/firebase/firebase_utils";
 import CartIcon from "../../cartIcon/cartIcon";
 import CartDropdown from "../../cartDropdown/cartDropdown";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { selectIsCartOpen } from "../../../redux/stores/cart/cart_selectors";
+import { signOutStart } from "../../../redux/stores/user/user_actions";
 
 function NavBar() {
 
     const navigate = useNavigate()
 
-    const {user} = useSelector((state: any) => state.user)
+    const { user } = useSelector((state: any) => state.user)
+
+    const dispatch = useDispatch()
 
     const isCartOpen = useSelector(selectIsCartOpen)
 
     const handleLogout = async () => {
-        await logout();
-
+        dispatch(signOutStart())
         navigate("/authenticate")
     }
 

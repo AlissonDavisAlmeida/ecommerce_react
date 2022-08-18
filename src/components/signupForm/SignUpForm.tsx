@@ -1,4 +1,6 @@
 import { ChangeEvent, FormEvent, useState } from "react";
+import { useDispatch } from "react-redux";
+import { signupStart } from "../../redux/stores/user/user_actions";
 import { createUser, createUserDocumentFromAuth } from "../../utils/firebase/firebase_utils";
 import Button from "../buttonForm/ButtonForm";
 import FormInput from "../formInput/formInput";
@@ -23,7 +25,7 @@ export function SignupForm() {
 
     const [formField, setformField] = useState(initialStateFormFields);
 
-
+    const dispatch = useDispatch()
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         const { id, value } = e.target;
@@ -39,10 +41,7 @@ export function SignupForm() {
 
         try {
 
-            const { user } = await createUser(formField.email, formField.password);
-
-
-            await createUserDocumentFromAuth(user, { displayName: formField.displayName });
+            dispatch(signupStart(formField.email, formField.password));
 
             setformField(initialStateFormFields);
         } catch (error: any) {
